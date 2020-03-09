@@ -13,5 +13,8 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/oyangchin/Documents/001_588/588-Homework/project/HW_servlet-jsp/588Servlet/WebContent/WEB-INF/lib/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/oyangchin/Documents/001_588/588-Homework/project/HW_servlet-jsp/588Servlet/WebContent/WEB-INF/lib/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="/Users/oyangchin/Documents/001_588/588-Homework/project/HW_servlet-jsp/588Servlet/WebContent/WEB-INF/lib/db2jcc.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
