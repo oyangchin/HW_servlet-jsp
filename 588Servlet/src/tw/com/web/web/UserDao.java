@@ -8,6 +8,7 @@ import java.util.List;
 
 import tw.com.bean.User;
 import tw.com.input.AddUserInput;
+import tw.com.input.QueryUserInput;
 import tw.com.web.dao.BaseDao;
 
 public class UserDao extends BaseDao {
@@ -54,14 +55,82 @@ public class UserDao extends BaseDao {
 		return list;
 	}
 
-	
+	public List<User> query(QueryUserInput queryUser) {
+
+		List<User> list = new ArrayList<User>();
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		String name = queryUser.getName();
+		String phone = queryUser.getPhone();
+
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT * FROM USERS ");
+			sql.append(" WHERE 1 = 1 ");
+
+//			
+			if (name != null && !"".equals(name)) {
+				sql.append(" and name LIKE ? ");
+			}
+			if (phone != null && !"".equals(phone)) {
+				sql.append(" and phone LIKE ? ");
+			}
+			
+			sql.append(" ORDER BY ID ");
+			System.out.println("User Query SQL : " + sql.toString());
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+
+			if (name != null && !"".equals(name)) {
+				ps.setString(1, "%" + name + "%");
+
+				if (phone != null && !"".equals(phone)) {
+					ps.setString(2,  "%" + phone + "%");
+				}
+
+			} else {
+				if (phone != null && !"".equals(phone)) {
+					ps.setString(1, "%" + phone + "%");
+				}
+			}
+
+			System.out.println("User Query SQL ps : " + ps);
+			ResultSet rs = ps.executeQuery();
+			User user = null;
+			while (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt("ID"));
+				user.setAge(rs.getInt("AGE"));
+				user.setName(rs.getString("NAME"));
+				user.setCountry(rs.getString("COUNTRY"));
+				user.setPhone(rs.getString("PHONE"));
+				user.setUserId(rs.getString("USERID"));
+				list.add(user);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+
+				}
+			}
+		}
+
+		return list;
+
+	}
+
 	public Integer addUser(AddUserInput AddUser) {
 //		System.out.print(">>>>> addUser >>>>>" + AddUser.getUserId());
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement ps = null;
-
-		
 
 		try {
 			StringBuffer sql = new StringBuffer();
@@ -69,8 +138,7 @@ public class UserDao extends BaseDao {
 			sql.append(" USER (NAME,USERID,PASSWORD,AGE,PHONE,COUNTRY) ");
 			sql.append(" VALUES  ");
 			sql.append("  ('" + AddUser.getName() + "','" + AddUser.getUserId() + "','" + AddUser.getPassword() + "',"
-					+ AddUser.getAge() + ",'" + AddUser.getPhone() + ";,'"
-					+ "','" + AddUser.getCountry() + "'); ");
+					+ AddUser.getAge() + ",'" + AddUser.getPhone() + ";,'" + "','" + AddUser.getCountry() + "'); ");
 
 			conn = this.getConnection();
 			ps = conn.prepareStatement(sql.toString());
