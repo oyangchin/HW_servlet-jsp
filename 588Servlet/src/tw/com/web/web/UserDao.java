@@ -127,22 +127,34 @@ public class UserDao extends BaseDao {
 	}
 
 	public Integer addUser(AddUserInput AddUser) {
-//		System.out.print(">>>>> addUser >>>>>" + AddUser.getUserId());
+		
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement ps = null;
 
+		String name = AddUser.getName();
+		String phone = AddUser.getPhone();
+		String age = Integer.toString(AddUser.getAge());  
+		String userId = AddUser.getUserId();
+		String password = AddUser.getPassword();
+		String country = AddUser.getCountry();
+		
 		try {
 			StringBuffer sql = new StringBuffer();
 			sql.append(" INSERT INTO   ");
-			sql.append(" USER (NAME,USERID,PASSWORD,AGE,PHONE,COUNTRY) ");
-			sql.append(" VALUES  ");
-			sql.append("  ('" + AddUser.getName() + "','" + AddUser.getUserId() + "','" + AddUser.getPassword() + "',"
-					+ AddUser.getAge() + ",'" + AddUser.getPhone() + ";,'" + "','" + AddUser.getCountry() + "'); ");
+			sql.append(" USERS (NAME,USERID,PASSWORD,AGE,PHONE,COUNTRY) ");
+			sql.append(" VALUES   ( ? , ? , ? , ? , ? , ? ); ");
 
 			conn = this.getConnection();
 			ps = conn.prepareStatement(sql.toString());
-			System.out.println(">>>> user addUser >>>>" + ps);
+			
+			ps.setString(1, name);
+			ps.setString(2, userId);
+			ps.setString(3, password);
+			ps.setString(4, age);
+			ps.setString(5, phone);
+			ps.setString(6, country);
+			
 			count = ps.executeUpdate();
 
 			System.out.print(">>>>> addUser count>>>>>" + count);

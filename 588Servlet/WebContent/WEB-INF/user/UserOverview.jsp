@@ -50,9 +50,10 @@ https://stackoverflow.com/questions/21847117/jstl-cforeach-error-attribute-items
 				<div class="row">
 					<div class="col-md-10">
 						<div class="card">
-							<form class="form-horizontal" action="UserQuery" method="POST">
-								<div class="card-body">
-									<h4 class="card-title">會員列表</h4>
+							<div class="card-body">
+								<form class="form-horizontal" action="UserQuery" method="POST">
+
+									<h4 class="card-title">會員查詢</h4>
 									<div class="form-group row">
 										<label for="fname"
 											class="col-sm-2 text-right control-label col-form-label">姓名</label>
@@ -66,51 +67,66 @@ https://stackoverflow.com/questions/21847117/jstl-cforeach-error-attribute-items
 										<label for="cono1"
 											class="col-sm-2 text-right control-label col-form-label">電話</label>
 										<div class="col-sm-6">
-											<input type="text" class="form-control" id="phone" name="phone"
-												placeholder="Contact No Here">
+											<input type="text" class="form-control" id="phone"
+												name="phone" placeholder="Contact No Here">
 										</div>
 										<div class="col-sm-3">
-										<input type="submit" class="btn btn-primary"  name="搜尋">
+											<input type="submit" class="btn btn-primary" name="搜尋">
 											<!-- <button type="button" class="btn btn-primary" type="submit">搜尋</button> -->
 										</div>
 									</div>
-							</form>
+								</form>
+							</div>
+						</div>
+						<!-- User Table -->
 
-							<!-- User Table -->
-							<table class="table">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">姓名</th>
-										<th scope="col">年齡</th>
-										<th scope="col">電話</th>
-										<th scope="col">編輯</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach items="${userList}" var="user">
+						<div class="card">
+							<div class="card-body">
+								<div>
+									<h4 class="card-title">會員列表</h4>
+									<form action="UserAdd" method="GET">
+										<button type="submit" class="btn btn-outline-info">
+											<i class="m-r-10 mdi mdi-account-multiple-plus"></i>新增會員
+										</button>
+									</form>
+
+								</div>
+								<table class="table">
+									<thead>
 										<tr>
-											<th scope="row">${user.id}</th>
-											<td>${user.name}</td>
-											<td>${user.age}</td>
-											<td>${user.phone}</td>
-											<td>編輯</td>
+											<th scope="col">#</th>
+											<th scope="col">姓名</th>
+											<th scope="col">年齡</th>
+											<th scope="col">電話</th>
+											<th scope="col">編輯</th>
 										</tr>
-									</c:forEach>
+									</thead>
+									<tbody>
+										<c:forEach items="${userList}" var="user">
+											<tr>
+												<th scope="row">${user.id}</th>
+												<td>${user.name}</td>
+												<td>${user.age}</td>
+												<td>${user.phone}</td>
+												<td>編輯</td>
+											</tr>
+										</c:forEach>
 
-								</tbody>
-							</table>
+									</tbody>
+								</table>
+							</div>
 						</div>
 
-
 					</div>
+
+
 				</div>
+
+
 			</div>
 
+			<jsp:include page="../../component/footer.jsp"></jsp:include>
 		</div>
-
-		<jsp:include page="../../component/footer.jsp"></jsp:include>
-	</div>
 	</div>
 	<!-- ================ Jquery ================ -->
 	<jsp:include page="../../component/script.jsp"></jsp:include>
