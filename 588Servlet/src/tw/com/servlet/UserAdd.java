@@ -27,6 +27,8 @@ public class UserAdd extends BaseSerlvet {
 			throws ServletException, IOException {
 		System.out.println("UserAddServlet#doPost start");
 
+		request.setCharacterEncoding("UTF-8");
+		
 		List<User> list = null;
 		Map<String, Object> result = new HashMap<String, Object>();
 		PrintWriter out = null;

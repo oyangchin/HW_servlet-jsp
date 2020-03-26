@@ -50,6 +50,8 @@ public class UserList extends BaseSerlvet {
 			throws ServletException, IOException {
 		System.out.println("UserListServlet#doPost start");
 
+		request.setCharacterEncoding("UTF-8");
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		PrintWriter out = null;
 
