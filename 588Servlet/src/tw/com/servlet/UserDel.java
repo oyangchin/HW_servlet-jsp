@@ -11,48 +11,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import tw.com.bean.User;
-import tw.com.input.AddUserInput;
 import tw.com.web.web.UserDao;
 
 /**
- * Servlet implementation class UserAdd
+ * Servlet implementation class UserDel
  */
-@WebServlet("/UserAdd")
-public class UserAdd extends BaseSerlvet {
+@WebServlet("/UserDel")
+public class UserDel extends BaseSerlvet {
 	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request,response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("UserAddServlet#doPost start");
+		System.out.println(">>>> Servlet Start UserEdit :  >>>>");
 
 		request.setCharacterEncoding("UTF-8");
-		
+		String userId = request.getParameter("userId");
+		System.out.println(">>>> Servlet Start UserEdit :  >>>>" + userId);
 		List<User> list = null;
 //		Map<String, Object> result = new HashMap<String, Object>();
 		PrintWriter out = null;
-
-		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		int age = Integer.parseInt(request.getParameter("age")) ;
-		String country = request.getParameter("country");
-		System.out.println("UserListServlet#doPost start"+name+phone+password+userId+country+age);
-
-		
-		AddUserInput addUserInput = new AddUserInput();
-		addUserInput.setName(name);
-		addUserInput.setPhone(phone);
-		addUserInput.setAge(age);
-		addUserInput.setUserId(userId);
-		addUserInput.setPassword(password);
-		addUserInput.setCountry(country);
 		
 		try {
 			UserDao dao = new UserDao();
-			int addCount = dao.addUser(addUserInput);
+			int delCount = dao.del(userId);
 			
-			if (addCount > 0) {
+			if (delCount > 0) {
 				list = dao.getAll();
 			}
 			
@@ -70,13 +58,6 @@ public class UserAdd extends BaseSerlvet {
 		}
 
 		
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/user/UserEdit.jsp");
-		view.forward(request, response);
 	}
 
 }

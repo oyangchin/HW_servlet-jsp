@@ -98,7 +98,8 @@ https://stackoverflow.com/questions/21847117/jstl-cforeach-error-attribute-items
 											<th scope="col">姓名</th>
 											<th scope="col">年齡</th>
 											<th scope="col">電話</th>
-											<th scope="col">編輯</th>
+											<th scope="col"></th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -108,7 +109,26 @@ https://stackoverflow.com/questions/21847117/jstl-cforeach-error-attribute-items
 												<td>${user.name}</td>
 												<td>${user.age}</td>
 												<td>${user.phone}</td>
-												<td>編輯</td>
+												<td>
+													<form action="UserInit" method="POST">
+													<input type="text" class="form-control d-sm-none" 
+														 value="${user.id}"	name="userId">
+														<button type="submit" class="btn btn-cyan btn-sm">
+															<i class="m-r-10 mdi mdi-lead-pencil"></i>編輯
+														</button>
+													</form>
+
+
+												</td>
+												<td>
+													<form action="UserDel" method="POST">
+														<input type="text" class="form-control d-sm-none" 
+														 value="${user.id}"	name="userId">
+														<button type="submit" class="btn btn-danger btn-sm">
+															<i class="m-r-10 mdi mdi-delete"></i>刪除
+														</button>
+													</form>
+												</td>
 											</tr>
 										</c:forEach>
 

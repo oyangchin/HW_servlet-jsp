@@ -55,6 +55,49 @@ public class UserDao extends BaseDao {
 		return list;
 	}
 
+	public User getById(String userId) {
+
+		User user = new User();
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT * FROM USERS WHERE ID = ? ");
+
+			System.out.println("User Init SQL : " + sql.toString() + userId);
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, userId);
+
+			System.out.println("User Init SQL ps : " + ps);
+			ResultSet rs = ps.executeQuery();
+
+//			user = null;
+			while (rs.next()) {
+				user.setId(rs.getInt("ID"));
+				user.setAge(rs.getInt("AGE"));
+				user.setName(rs.getString("NAME"));
+				user.setCountry(rs.getString("COUNTRY"));
+				user.setPhone(rs.getString("PHONE"));
+				user.setUserId(rs.getString("USERID"));
+			}
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+
+				}
+			}
+		}
+
+		return user;
+	}
+
 	public List<User> query(QueryUserInput queryUser) {
 
 		List<User> list = new ArrayList<User>();
@@ -77,7 +120,7 @@ public class UserDao extends BaseDao {
 			if (phone != null && !"".equals(phone)) {
 				sql.append(" and phone LIKE ? ");
 			}
-			
+
 			sql.append(" ORDER BY ID ");
 			System.out.println("User Query SQL : " + sql.toString());
 			conn = this.getConnection();
@@ -87,7 +130,7 @@ public class UserDao extends BaseDao {
 				ps.setString(1, "%" + name + "%");
 
 				if (phone != null && !"".equals(phone)) {
-					ps.setString(2,  "%" + phone + "%");
+					ps.setString(2, "%" + phone + "%");
 				}
 
 			} else {
@@ -127,18 +170,18 @@ public class UserDao extends BaseDao {
 	}
 
 	public Integer addUser(AddUserInput AddUser) {
-		
+
 		int count = 0;
 		Connection conn = null;
 		PreparedStatement ps = null;
 
 		String name = AddUser.getName();
 		String phone = AddUser.getPhone();
-		String age = Integer.toString(AddUser.getAge());  
+		String age = Integer.toString(AddUser.getAge());
 		String userId = AddUser.getUserId();
 		String password = AddUser.getPassword();
 		String country = AddUser.getCountry();
-		
+
 		try {
 			StringBuffer sql = new StringBuffer();
 			sql.append(" INSERT INTO   ");
@@ -147,14 +190,14 @@ public class UserDao extends BaseDao {
 
 			conn = this.getConnection();
 			ps = conn.prepareStatement(sql.toString());
-			
+
 			ps.setString(1, name);
 			ps.setString(2, userId);
 			ps.setString(3, password);
 			ps.setString(4, age);
 			ps.setString(5, phone);
 			ps.setString(6, country);
-			
+
 			count = ps.executeUpdate();
 
 			System.out.print(">>>>> addUser count>>>>>" + count);
@@ -171,6 +214,40 @@ public class UserDao extends BaseDao {
 			}
 		}
 		return count;
+	}
+
+	public Integer del(String userId) {
+//		List<User> list = new ArrayList<User>();
+
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" DELETE USERS WHERE ID = ?  ");
+			System.out.println("User Query SQL : " + sql.toString());
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, userId);
+
+			count = ps.executeUpdate();
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+
+				}
+			}
+
+		}
+
+		return count;
+
 	}
 
 }

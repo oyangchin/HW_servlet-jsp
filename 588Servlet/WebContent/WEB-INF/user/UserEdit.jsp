@@ -53,7 +53,7 @@
 										<label for="name"
 											class="col-sm-3 text-right control-label col-form-label">姓名</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="name" name="name"
+											<input type="text" class="form-control" id="name" name="name" value="${user.name}"
 												placeholder="輸入姓名...">
 										</div>
 									</div>
