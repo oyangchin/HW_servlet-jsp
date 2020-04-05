@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!-- *** 載入 ＪＳＴＬ .jar -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!-- ============================================================== -->
 <!-- Left Sidebar -->
 <!-- ============================================================== -->
@@ -28,11 +31,16 @@
 				out.print("selected");
 			}%> 
 			
-				 "><a
+				 ">
+					<a href="<c:url value="UserQuery"/>"
 					class="sidebar-link waves-effect waves-dark sidebar-link"
-					href="UserOverview.jsp" aria-expanded="false"><i
-						class="mdi mdi-account"></i><span class="hide-menu">會員管理</span></a></li>
-				<li class="sidebar-item 
+					aria-expanded="false"> <i class="mdi mdi-account"></i><span
+						class="hide-menu">會員管理</span>
+				</a>
+
+				</li>
+				<li
+					class="sidebar-item 
 				 <%if (request.getParameter("pageTitle").equals("imageUpload")
 					|| request.getParameter("pageTitle").equals("excelImport")) {
 				out.print("selected");

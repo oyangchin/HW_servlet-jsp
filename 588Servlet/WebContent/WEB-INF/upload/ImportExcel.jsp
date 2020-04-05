@@ -26,10 +26,10 @@
 		<!-- ====================== Topbar header ========================= -->
 		<jsp:include page="component/topbar.jsp"></jsp:include>
 		<!-- ====================== Topbar header ========================= -->
-
+		
 		<!-- ====================== Left Sidebar ========================= -->
-		<jsp:include page="component/leftSidebar.jsp"><jsp:param
-				value="excelImport" name="pageTitle" /></jsp:include>
+		<jsp:include page="component/leftSidebar.jsp"><jsp:param value="excelImport"
+				name="pageTitle" /></jsp:include>
 		<!-- ====================== Left Sidebar ========================= -->
 
 
@@ -43,36 +43,6 @@
 			<div class="container-fluid">
 
 				<div class="row">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">匯入 Excel 檔案</h5>
-								<div class="row mb-3 align-items-center">
-									<div class="col-lg-2 col-md-12 text-right">
-										<span>檔案上傳</span>
-									</div>
-									<div class="col-lg-10 col-md-12">
-										<div class="custom-file">
-											<input type="file" class="custom-file-input"
-												id="validatedCustomFile" required> <label
-												class="custom-file-label" for="validatedCustomFile">Choose
-												file...</label>
-											<div class="invalid-feedback">Example invalid custom
-												file feedback</div>
-										</div>
-									</div>
-								</div>
-
-
-
-							</div>
-							<div class="border-top">
-								<div class="card-body">
-									<button type="button" class="btn btn-primary">匯入</button>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 
 			</div>
