@@ -1,13 +1,22 @@
 package tw.com.bean;
 
 public class User {
-	
+
 	int id;
 
 	String name;
 
 	String userId;
 
+	String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	int age;
 

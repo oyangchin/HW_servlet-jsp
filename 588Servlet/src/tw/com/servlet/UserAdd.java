@@ -26,7 +26,7 @@ public class UserAdd extends BaseSerlvet {
 		System.out.println("UserAddServlet#doPost start");
 
 		request.setCharacterEncoding("UTF-8");
-		
+
 		List<User> list = null;
 //		Map<String, Object> result = new HashMap<String, Object>();
 		PrintWriter out = null;
@@ -35,30 +35,42 @@ public class UserAdd extends BaseSerlvet {
 		String phone = request.getParameter("phone");
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
-		int age = Integer.parseInt(request.getParameter("age")) ;
+		int age = Integer.parseInt(request.getParameter("age"));
 		String country = request.getParameter("country");
-		System.out.println("UserListServlet#doPost start"+name+phone+password+userId+country+age);
+		System.out.println("UserListServlet#doPost start" + name + phone + password + userId + country + age);
 
-		
 		AddUserInput addUserInput = new AddUserInput();
+
 		addUserInput.setName(name);
 		addUserInput.setPhone(phone);
 		addUserInput.setAge(age);
 		addUserInput.setUserId(userId);
 		addUserInput.setPassword(password);
 		addUserInput.setCountry(country);
-		
+
 		try {
 			UserDao dao = new UserDao();
-			int addCount = dao.addUser(addUserInput);
-			
+			int addCount;
+			System.out.println(">>> id  處理編輯 >>>> >>>> " + request.getParameter("id"));
+			// 處理編輯
+			if (request.getParameter("id") != null) {
+
+				int id = Integer.parseInt(request.getParameter("id"));
+				System.out.println(">>> id >>>>" + request.getParameter("id") + " >>>> " + id);
+				addUserInput.setId(id);
+				addCount = dao.editUser(addUserInput);
+			}
+
+			// 處理新增
+			addCount = dao.addUser(addUserInput);
+
 			if (addCount > 0) {
 				list = dao.getAll();
 			}
-			
+
 			response.setContentType("application/json; charset=utf-8");
 			out = response.getWriter();
-			
+
 			request.setAttribute("userList", list);
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/user/UserOverview.jsp");
 			view.forward(request, response);
@@ -69,7 +81,6 @@ public class UserAdd extends BaseSerlvet {
 			out.close();
 		}
 
-		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

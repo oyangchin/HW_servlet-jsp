@@ -2,6 +2,8 @@ package tw.com.input;
 
 public class AddUserInput {
 
+	int id;
+
 	String name;
 
 	String userId;
@@ -13,6 +15,14 @@ public class AddUserInput {
 	String phone;
 
 	String country;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getAge() {
 		return age;

@@ -81,6 +81,7 @@ public class UserDao extends BaseDao {
 				user.setCountry(rs.getString("COUNTRY"));
 				user.setPhone(rs.getString("PHONE"));
 				user.setUserId(rs.getString("USERID"));
+				user.setPassword(rs.getString("PASSWORD"));
 			}
 			return user;
 		} catch (Exception e) {
@@ -202,6 +203,60 @@ public class UserDao extends BaseDao {
 
 			System.out.print(">>>>> addUser count>>>>>" + count);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (Exception e) {
+
+				}
+			}
+		}
+		return count;
+	}
+
+	public Integer editUser(AddUserInput AddUser) {
+		System.out.print(">>>>> editUser count >>>>>");
+
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		String id = Integer.toString(AddUser.getId());
+		String name = AddUser.getName();
+		String phone = AddUser.getPhone();
+		String age = Integer.toString(AddUser.getAge());
+		String userId = AddUser.getUserId();
+		String password = AddUser.getPassword();
+		String country = AddUser.getCountry();
+
+		try {
+
+			User user = getById(id);
+			if (user != null) { // Q:這樣判斷是對的嗎？
+
+				StringBuffer sql = new StringBuffer();
+				sql.append(" UPDATE USERS SET NAME = ? , USERID = ?, ");
+				sql.append(" PASSWORD = ? , AGE = ? , PHONE = ? , COUNTRY = ? ");
+				sql.append(" WHERE ID = ? ");
+
+				conn = this.getConnection();
+				ps = conn.prepareStatement(sql.toString());
+
+				ps.setString(1, name);
+				ps.setString(2, userId);
+				ps.setString(3, password);
+				ps.setString(4, age);
+				ps.setString(5, phone);
+				ps.setString(6, country);
+				ps.setString(7, id);
+
+				count = ps.executeUpdate();
+
+				System.out.print(">>>>> editUser count >>>>>" + count);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

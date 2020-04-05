@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<!-- *** 載入 ＪＳＴＬ .jar -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- *** 解決 include 傳遞 jsp:param 中文亂碼的問題 *** -->
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
+
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -48,13 +50,27 @@
 							<form class="form-horizontal" id="submitForm" action="UserAdd"
 								method="POST">
 								<div class="card-body">
-									<h4 class="card-title">新增會員</h4>
+
+									<c:if test="${user.id != null || user.id == 0 }">
+										<h4 class="card-title">編輯會員</h4>
+									</c:if>
+									<c:if test="${user.id == null}">
+										<h4 class="card-title">新增會員</h4>
+									</c:if>
+									<div class="form-group row" style="display: none;">
+										<label for="name"
+											class="col-sm-3 text-right control-label col-form-label">ID</label>
+										<div class="col-sm-9">
+											<input type="text" class="form-control" id="id" name="id"
+												value="${user.id}" placeholder="輸入姓名...">
+										</div>
+									</div>
 									<div class="form-group row">
 										<label for="name"
 											class="col-sm-3 text-right control-label col-form-label">姓名</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="name" name="name" value="${user.name}"
-												placeholder="輸入姓名...">
+											<input type="text" class="form-control" id="name" name="name"
+												value="${user.name}" placeholder="輸入姓名...">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -70,15 +86,16 @@
 											class="col-sm-3 text-right control-label col-form-label">密碼</label>
 										<div class="col-sm-9">
 											<input type="password" class="form-control" id="password"
-												name="password" placeholder="輸入密碼...">
+												name="password" value="${user.password}"
+												placeholder="輸入密碼...">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label for="country"
 											class="col-sm-3 text-right control-label col-form-label">年齡</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" id="age"
-												name="age" placeholder="輸入年齡...">
+											<input type="text" class="form-control" id="age" name="age"
+												value="${user.age}" placeholder="輸入年齡...">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -86,7 +103,7 @@
 											class="col-sm-3 text-right control-label col-form-label">電話</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" id="phone"
-												name="phone" placeholder="輸入電話...">
+												name="phone" value="${user.phone}" placeholder="輸入電話...">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -94,10 +111,9 @@
 											class="col-sm-3 text-right control-label col-form-label">地址</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" id="country"
-												name="country" placeholder="輸入地址...">
+												name="country" value="${user.country}" placeholder="輸入地址...">
 										</div>
 									</div>
-
 								</div>
 								<div class="border-top">
 									<div class="card-body">
@@ -141,6 +157,29 @@
 			e.preventDefault(); // avoid to execute the actual submit of the form.
 		});
 	</script> -->
+
+
+	<!-- <script type=”text/javascript”>
+
+	$(document).ready(function (){
+
+
+	    console.log('>>>> user init : ', ${user});
+
+	});
+	</script> -->
+
+	<script type=”text/javascript”>
+
+window.onload = function (){
+
+    var userName=”xiaoming”;
+
+    alert(userName);
+
+}
+</script>
+
 </body>
 
 </html>

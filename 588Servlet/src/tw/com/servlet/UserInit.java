@@ -19,13 +19,14 @@ import tw.com.web.web.UserDao;
 @WebServlet("/UserInit")
 public class UserInit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		System.out.println(">>>> Servlet Start UserInit #doPost:  >>>>");
 
 		request.setCharacterEncoding("UTF-8");
@@ -34,16 +35,14 @@ public class UserInit extends HttpServlet {
 //		List<User> list = null;
 //		Map<String, Object> result = new HashMap<String, Object>();
 		PrintWriter out = null;
-		
+
 		try {
 			UserDao dao = new UserDao();
 			User user = dao.getById(userId);
-			
-			
-			
+
 			response.setContentType("application/json; charset=utf-8");
 			out = response.getWriter();
-			
+
 			request.setAttribute("user", user);
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/user/UserEdit.jsp");
 			view.forward(request, response);
@@ -53,7 +52,7 @@ public class UserInit extends HttpServlet {
 			out.flush();
 			out.close();
 		}
-		
+
 	}
 
 }
