@@ -20,7 +20,7 @@
 			}%> 
 				 "><a
 					class="sidebar-link waves-effect waves-dark sidebar-link"
-					href="index.jsp" aria-expanded="false"><i
+					href="<c:url value="index"/>" aria-expanded="false"><i
 						class="mdi mdi-home-outline"></i><span class="hide-menu">首頁</span></a></li>
 
 				<li
@@ -50,10 +50,10 @@
 						class="mdi mdi-checkerboard"></i><span class="hide-menu">功能
 					</span></a>
 					<ul aria-expanded="false" class="collapse  first-level">
-						<li class="sidebar-item"><a href="imageUpload.jsp"
+						<li class="sidebar-item"><a href="<c:url value="imageUpload"/>"
 							class="sidebar-link"><i class="mdi mdi-folder-image"></i><span
-								class="hide-menu"> 上傳圖片 </span></a></li>
-						<li class="sidebar-item"><a href="excelImport.jsp"
+								class="hide-menu"> 上傳圖片 </span></a></li> 
+						<li class="sidebar-item"><a href="<c:url value="excelImport"/>"
 							class="sidebar-link"><i class="mdi mdi-file-excel"></i><span
 								class="hide-menu"> 匯入 Excel </span></a></li>
 

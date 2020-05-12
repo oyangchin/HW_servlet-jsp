@@ -305,4 +305,111 @@ public class UserDao extends BaseDao {
 
 	}
 
+	public String findPWByUserId(String userId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT PASSWORD FROM USERS WHERE USERID = ? ");
+
+			System.out.println("User Init SQL : " + sql.toString() + userId);
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, userId);
+
+			System.out.println("User Init SQL ps : " + ps);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				return rs.getString("PASSWORD");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	public void saveSession(String userId, String sessionId) {
+		System.out.println(">>>>> sessionId : " + userId + sessionId );
+
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" UPDATE USERS SET userSession = ?  ");
+			sql.append("  WHERE USERID = ? ");
+
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, sessionId);
+			ps.setString(2, userId);
+			count = ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("User saveSession SQL : " + e.toString());
+		}
+	}
+	
+	public Boolean checkSession(String userId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT USERSESSION FROM USERS WHERE USERID = ? ");
+
+			System.out.println("User Init SQL : " + sql.toString() + userId);
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, userId);
+
+			System.out.println("User Init SQL ps : " + ps);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				String getSession = rs.getString("USERSESSION");
+				
+				if (getSession != null) {
+					return true;
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("checkSession ERROR : " + e.toString());
+			return false;
+		}
+		return false;
+	}
+
+	public String getSessionByUserID(String userId) {
+		Connection conn = null;
+		PreparedStatement ps = null;
+
+		try {
+			StringBuffer sql = new StringBuffer();
+			sql.append(" SELECT USERSESSION FROM USERS WHERE USERID = ? ");
+
+			System.out.println("User Init SQL : " + sql.toString() + userId);
+			conn = this.getConnection();
+			ps = conn.prepareStatement(sql.toString());
+			ps.setString(1, userId);
+
+			System.out.println("User Init SQL ps : " + ps);
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				return rs.getString("USERSESSION");
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+	
+
 }
